@@ -1,1 +1,1 @@
-# Coding
+# Algorithm
