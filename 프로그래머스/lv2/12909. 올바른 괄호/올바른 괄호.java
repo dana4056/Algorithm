@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Stack;
 
 class Solution {
     boolean solution(String s) {
