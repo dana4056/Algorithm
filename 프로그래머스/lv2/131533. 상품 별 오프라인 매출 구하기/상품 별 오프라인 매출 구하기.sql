@@ -1,0 +1,27 @@
+-- 코드를 입력하세요
+
+
+SELECT P.PRODUCT_CODE, SUM(P.PRICE * O.SALES_AMOUNT) AS SALES
+FROM PRODUCT AS P
+JOIN OFFLINE_SALE AS O
+ON P.PRODUCT_ID = O.PRODUCT_ID
+GROUP BY O.PRODUCT_ID
+ORDER BY SALES DESC, P.PRODUCT_CODE
+
+
+-- 상품코드별
+-- 매출액 (판매가 * 판매량)
+-- 정렬1: 매출액 내림차순
+-- 정렬2: 상품코드 오름차순
+
+
+-- [PRODUCT]
+-- PRODUCT_ID	상품 ID
+-- PRODUCT_CODE	상품 코드
+-- PRICE        판매가
+
+-- [OFFLINE_SALE]
+-- OFFLINE_SALE_ID	상품 판매 ID
+-- PRODUCT_ID	    상품 ID
+-- SALES_AMOUNT	    판매량
+-- SALES_DATE       판매일
