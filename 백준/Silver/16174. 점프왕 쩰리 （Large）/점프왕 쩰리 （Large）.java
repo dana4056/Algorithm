@@ -5,10 +5,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Main {
+	static int N;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
+		N = Integer.parseInt(br.readLine());
 		int[][] map = new int[N][N];
+		boolean[][] visited = new boolean[N][N];
 
 		String answer = "Hing";
 
@@ -20,6 +22,7 @@ public class Main {
 		}
 
 		Queue<Node> q = new LinkedList<>();
+        visited[0][0] = true;
 		q.add(new Node(0, 0));
 
 		while (!q.isEmpty()){
@@ -28,21 +31,28 @@ public class Main {
 			int c = now.c;
 			int delta = map[now.r][now.c];
 
-			map[now.r][now.c] = 0;
-
 			if(delta == -1){
 				answer = "HaruHaru";
 				break;
 			}
 
-			if(c+delta < N && map[r][c+delta] != 0){
+			if(inRange(r, c+delta) && !visited[r][c+delta]){
+                visited[r][c+delta] = true;
 				q.add(new Node(r, c+delta));	// 오른쪽 이동
 			}
-			if(r+delta < N && map[r+delta][c] != 0){
+			if(inRange(r+delta, c) && !visited[r+delta][c]){
+                visited[r+delta][c] = true;
 				q.add(new Node(r+delta, c));	// 아래로 이동
 			}
 		}
 		System.out.println(answer);
+	}
+
+	private static boolean inRange(int row, int col) {
+		if (row >= 0 && row < N && col >= 0 && col < N){
+			return true;
+		}
+		return false;
 	}
 
 	static class Node{
