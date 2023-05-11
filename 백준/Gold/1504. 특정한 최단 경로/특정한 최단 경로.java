@@ -1,8 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Main {
     static boolean[] visited;
@@ -45,28 +44,31 @@ public class Main {
         int[] startNodes = {1,V1,V2,N};
 
         for(int i : startNodes){
-            for(int n = 1 ; n <= N ; n++){
-                int now = nextNode(i);
-                if(now == 0){
-                    break;
-                }
-                visited[now] = true;
-                if(graph[now].size() > 0){
-                    for(Node next : graph[now]){
-                        int to = next.to;
-                        int val = next.value;
+            PriorityQueue <Node> q = new PriorityQueue<>();
+            q.add(new Node(i,0));
 
-                        if(!visited[to]){
-                            dist[i][to] = Math.min(dist[i][to], dist[i][now] + val);
-                        }
+            while(!q.isEmpty()){
+                Node now = q.poll();
+                int nIdx = now.to;
+
+                if(visited[nIdx]) continue;
+
+                visited[nIdx] = true;
+                for(Node next : graph[nIdx]){
+                    int to = next.to;
+                    int val = next.value;
+
+                    if(!visited[to] && dist[i][nIdx] + val < dist[i][to]){
+                        dist[i][to] = dist[i][nIdx] + val;
+                        q.add(new Node(to, dist[i][to]));
                     }
                 }
             }
-
             for(int n = 1 ; n <= N ; n++){
                 visited[n] = false;
             }
         }
+
 
         int ans1 = INF, ans2 = INF;
         if(dist[1][V1] != INF && dist[V1][V2] != INF && dist[V2][N] != INF){
@@ -83,26 +85,18 @@ public class Main {
         }
     }
 
-    private static int nextNode(int i) {
-        int MAX = Integer.MAX_VALUE;
-        int idx = 0;
-
-        for(int j = 1 ; j <= N ; j++){
-            if(!visited[j] && dist[i][j] < MAX){
-                MAX = dist[i][j];
-                idx = j;
-            }
-        }
-        return idx;
-    }
-
-    static class Node{
+    static class Node implements Comparable<Node> {
         int to;
         int value;
 
         Node(int t, int v){
             this.to = t;
             this.value = v;
+        }
+
+        @Override
+        public int compareTo(Node o) {
+            return this.value - o.value;
         }
     }
 }
