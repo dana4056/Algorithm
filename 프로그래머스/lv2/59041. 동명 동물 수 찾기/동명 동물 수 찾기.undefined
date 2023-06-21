@@ -1,0 +1,9 @@
+-- 두 번 이상 쓰인 이름, 횟수
+-- 이름 NULL 제외
+-- 이름 오름차순
+
+SELECT NAME, COUNT(NAME) AS COUNT
+FROM ANIMAL_INS
+GROUP BY NAME
+HAVING COUNT >= 2
+ORDER BY NAME
