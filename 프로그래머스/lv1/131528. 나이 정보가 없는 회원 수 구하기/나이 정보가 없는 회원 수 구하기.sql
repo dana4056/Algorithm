@@ -1,0 +1,7 @@
+-- 회원 몇명?
+-- 나이 정보 없는 회원
+-- 컬럼명 USERS
+
+SELECT COUNT(USER_ID) AS USERS
+FROM USER_INFO
+WHERE AGE IS NULL
