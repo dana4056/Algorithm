@@ -4,8 +4,8 @@
 -- V 컬럼명: '진료과 코드', '5월예약건수'
 -- V 환자수 오름차순 -> 진료과코드 오름차순
 
-SELECT MCDP_CD AS '진료과 코드', COUNT(*) AS '5월예약건수'
+SELECT MCDP_CD AS '진료과코드', COUNT(*) AS '5월예약건수'
 FROM APPOINTMENT
 WHERE DATE_FORMAT(APNT_YMD, '%Y-%m') = '2022-05'
 GROUP BY MCDP_CD
-ORDER BY COUNT(*) ASC, MCDP_CD ASC
+ORDER BY 5월예약건수 ASC, 진료과코드 ASC
