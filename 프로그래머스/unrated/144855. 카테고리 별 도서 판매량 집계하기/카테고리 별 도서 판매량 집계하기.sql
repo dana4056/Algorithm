@@ -1,0 +1,12 @@
+-- V 카테고리, 총판매량 출력
+-- V 가테고리 별 
+-- V 판매량 합산 -> 총판매량
+-- V 2022년 1월 데이터에 대해
+-- V 카테고리명 오름차순
+
+SELECT CATEGORY, SUM(SALES) AS TOTAL_SALES
+FROM BOOK_SALES AS S JOIN BOOK AS B
+ON S.BOOK_ID = B.BOOK_ID
+WHERE DATE_FORMAT(SALES_DATE, '%Y-%m') = DATE_FORMAT('2022-01-00', '%Y-%m')
+GROUP BY CATEGORY
+ORDER BY CATEGORY
