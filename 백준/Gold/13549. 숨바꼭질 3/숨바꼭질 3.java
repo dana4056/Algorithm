@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Main {
     static boolean[] visited = new boolean[100001];
@@ -12,35 +14,37 @@ public class Main {
 
         int N = Integer.parseInt(NK[0]);
         int K = Integer.parseInt(NK[1]);
-        
+
         if(N == K){
             System.out.println(0);
             return;
         }
 
         PriorityQueue<Node> q = new PriorityQueue<>();
+
+        visited[N] = true;
         q.add(new Node(N, 0, 0));
+
         while(!q.isEmpty()){
             Node now = q.poll();
-            visited[now.value] = true;
 
-            if(now.value * 2 == K){
+            if(now.value == K){
                 System.out.println(now.cnt);
                 break;
             }
-            if(now.value - 1 == K || now.value + 1 == K){
-                System.out.println(now.cnt + 1);
-                break;
-            }
 
-            if(now.value * 2 <= 100000 && now.value*2 >= 0 && !visited[now.value * 2]){
+            if(now.value * 2 <= 100000 && now.value * 2 >= 0 && !visited[now.value * 2]){
+                visited[now.value * 2] = true;
                 q.add(new Node(now.value * 2, now.cnt, now.height + 1));
             }
-            if(now.value - 1 >= 0 && now.value - 1 <= 100000 && !visited[now.value - 1]){
-                q.add(new Node(now.value - 1, now.cnt + 1, now.height + 1));
-            }
+
             if(now.value + 1 <= 100000 && !visited[now.value + 1]){
+                visited[now.value + 1] = true;
                 q.add(new Node(now.value + 1, now.cnt + 1, now.height + 1));
+            }
+            if(now.value - 1 >= 0 && now.value - 1 <= 100000 && !visited[now.value - 1]){
+                visited[now.value - 1] = true;
+                q.add(new Node(now.value - 1, now.cnt + 1, now.height + 1));
             }
         }
     }
