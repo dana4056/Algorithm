@@ -13,11 +13,8 @@ public class Main {
         dp[0] = 0;
 
         for(int i = 1 ; i <= N ; i++){
-            for(int j = 1 ; j <= 320 ; j++){
-                int pow = (int)Math.pow(j, 2);
-                if(pow <= i){
-                    dp[i] = Math.min(dp[i], dp[i-pow] + 1);
-                }
+            for(int j = 1 ; j * j <= i ; j++){
+                dp[i] = Math.min(dp[i], dp[i-j*j] + 1);
             }
         }
         System.out.println(dp[N]);
