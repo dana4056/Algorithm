@@ -12,8 +12,7 @@ public class Main {
 
 		for(int r = 1 ; r <= str2.length() ; r++){
 			for(int c = 1 ; c <= str1.length() ; c++){
-				int d = str2.charAt(r - 1) == str1.charAt(c - 1) ? 1 : 0;
-				DP[r][c] = Math.max(Math.max(DP[r-1][c] , DP[r][c-1]), DP[r-1][c-1] + d) ;
+				DP[r][c] = str2.charAt(r - 1) == str1.charAt(c - 1) ? DP[r-1][c-1] + 1 : Math.max(DP[r-1][c] , DP[r][c-1]);
 			}
 		}
 		System.out.println(DP[str2.length()][str1.length()]);
