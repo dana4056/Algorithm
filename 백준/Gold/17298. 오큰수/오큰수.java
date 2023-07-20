@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
+
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -9,32 +9,37 @@ public class Main {
         StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
-        int[] nums = new int[N+1];
-        int[] arr = new int[N+1];
+        int[] arr = new int[N];
 
         String[] line = br.readLine().split(" ");
         for(int i = 0 ; i < N ; i++){
             arr[i] = Integer.parseInt(line[i]);
         }
 
-        Stack<Integer> st = new Stack<>();
+        int[] stack = new int[N];
+        int top = -1;
         for(int i = N-1 ; i >= 0 ; i--){
-           while(!st.isEmpty() && st.peek() <= arr[i]){
-               st.pop();
-           }
+            int num = arr[i];
 
-           if(!st.isEmpty()){
-               nums[i] = st.peek();
-           }else{
-               nums[i] = -1;
-           }
+            while(top >= 0 && stack[top] <= arr[i]){
+                // 스택: pop
+                top--;
+            }
 
-           st.push(arr[i]);
+            if(top >= 0){
+               arr[i] = stack[top];
+            }else{
+               arr[i] = -1;
+            }
+            // 스택: push
+            top++;
+            stack[top] = num;
         }
 
         for(int i = 0 ; i < N ; i++){
-            sb.append(nums[i]).append(" ");
+            sb.append(arr[i]).append(" ");
         }
         System.out.print(sb);
+
     }
 }
