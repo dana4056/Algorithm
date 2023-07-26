@@ -18,17 +18,20 @@ public class Main {
             }
 
             int target = Integer.parseInt(br.readLine());
-            int[] dp = new int[target+1];
-            for (int i = 1; i <= N; i++) {
-                for (int j = 1; j <=target; j++) {
-                    if (j - arr[i] > 0) {
-                        dp[j] = dp[j] + dp[j-arr[i]];
-                    } else if (j - arr[i] == 0) {
-                        dp[j]++;
+            int[][] dp = new int[N+1][target+1];
+
+            for(int i = 1 ; i <= N ; i++){
+                dp[i][0] = 1;
+                for(int j = 1 ; j <= target ; j++){
+                    if(j-arr[i] >= 0){
+                        dp[i][j] = dp[i-1][j] + dp[i][j-arr[i]];
+                    }else{
+                        dp[i][j] = dp[i-1][j];
                     }
                 }
             }
-            sb.append(dp[target] + "\n");
+
+            sb.append(dp[N][target]).append("\n");
         }
         System.out.print(sb);
     }
