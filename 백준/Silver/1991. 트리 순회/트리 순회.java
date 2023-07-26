@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    static int N;
     static char[][] graph;
     static StringBuilder middle = new StringBuilder();
     static StringBuilder before = new StringBuilder();
@@ -11,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
         graph = new char[N][2];
 
         for(int i = 0 ;i < N ; i++){
@@ -24,26 +23,26 @@ public class Main {
             graph[parent-65][1] = right;
         }
 
-        DFS('A', 1);
+        DFS('A');
 
         System.out.println(before);
         System.out.println(middle);
         System.out.print(after);
     }
 
-    private static void DFS(char ch, int cnt) {
+    private static void DFS(char ch) {
         before.append(ch);
 
         char left = graph[ch-65][0];
         char right = graph[ch-65][1];
 
         if(left != '.'){
-            DFS(left, cnt+1);
+            DFS(left);
         }
         middle.append(ch);
 
         if(right != '.'){
-            DFS(right, cnt+1);
+            DFS(right);
         }
         after.append(ch);
     }
