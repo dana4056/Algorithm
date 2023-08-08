@@ -51,7 +51,6 @@ public class Main {
     }
 
     private static boolean checkArrive() {
-        int cnt = 0;
         for(int s = 1 ; s <= N ; s++){
             int idx = s;
             for(int j = 1 ; j <= H ; j++){
@@ -61,13 +60,10 @@ public class Main {
                     idx--;
                 }
             }
-            if(idx == s){
-                cnt++;
+            if(idx != s){
+                return false;
             }
         }
-        if(cnt == N){
-            return true;
-        }
-        return false;
+        return true;
     }
 }
