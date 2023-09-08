@@ -19,14 +19,15 @@ public class Main {
             stars[i][0] = X;
             stars[i][1] = Y;
 
+            // 처음엔 자기자신이 부모
             parents[i] = i;
         }
 
         PriorityQueue<Star> pq = new PriorityQueue<>();
         for(int i = 0 ; i < N ; i++){
+            double ax = stars[i][0];
+            double ay = stars[i][1];
             for(int j = i+1 ; j < N ; j++){
-                double ax = stars[i][0];
-                double ay = stars[i][1];
                 double bx = stars[j][0];
                 double by = stars[j][1];
                 double dis = Math.sqrt(Math.pow(ax - bx, 2.0) + Math.pow(ay - by, 2.0));
@@ -38,6 +39,7 @@ public class Main {
         double sum = 0.0;
         while (cnt < N-1 && !pq.isEmpty()){
             Star now = pq.poll();
+            
             // 사이클 발생확인
             int aRoot = rootParent(now.A);
             int bRoot = rootParent(now.B);
@@ -46,6 +48,7 @@ public class Main {
             sum += now.dis;
             cnt += 1;
 
+            // 트리 합체
             parents[bRoot] = aRoot;
             parents[now.B] = aRoot;
         }
@@ -57,6 +60,7 @@ public class Main {
         if(parents[a] == a) return a;
         return rootParent(parents[a]);
     }
+    
     static class Star implements Comparable<Star>{
         int A;
         int B;
