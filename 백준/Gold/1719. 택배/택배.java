@@ -6,6 +6,8 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
         String[] NM = br.readLine().split(" ");
         int N = Integer.parseInt(NM[0]);
         int M = Integer.parseInt(NM[1]);
@@ -45,13 +47,14 @@ public class Main {
         for(int i = 0 ; i < N; i++){
             for(int j = 0 ; j < N ; j++){
                 if(i == j){
-                    System.out.print("- ");
+                    sb.append("- ");
                 }else{
-                    System.out.print(dp2[i][j]+" ");
+                    sb.append(dp2[i][j]).append(" ");
                 }
             }
-            System.out.println();
+            sb.append("\n");
         }
 
+        System.out.println(sb);
     }
 }
